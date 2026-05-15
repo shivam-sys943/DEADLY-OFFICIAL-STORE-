@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>DEADLY OFFICIAL STORE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -11,106 +14,209 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#0d0d0d;
+background:#0b0b0b;
 color:white;
+min-height:100vh;
 }
 
 header{
 background:#111;
-padding:20px;
+padding:18px;
 text-align:center;
-font-size:28px;
-font-weight:bold;
+font-size:24px;
+font-weight:700;
 color:#00bfff;
-box-shadow:0 0 10px #00bfff;
+box-shadow:0 0 15px rgba(0,191,255,0.4);
+position:sticky;
+top:0;
+z-index:100;
 }
 
 .container{
 width:95%;
-max-width:500px;
+max-width:1100px;
 margin:auto;
 padding:20px 0;
 }
 
-.card{
-background:#1a1a1a;
+.top-box{
+background:#151515;
 padding:20px;
-border-radius:15px;
+border-radius:18px;
 margin-bottom:20px;
+border:1px solid #222;
 }
 
-input,button,select{
+.top-box h2{
+margin-bottom:15px;
+color:#00bfff;
+}
+
+input{
 width:100%;
 padding:14px;
 margin-top:10px;
 border:none;
-border-radius:10px;
-font-size:16px;
-}
-
-input,select{
-background:#2a2a2a;
+outline:none;
+border-radius:12px;
+background:#222;
 color:white;
+font-size:15px;
 }
 
-button{
+.check-btn{
+width:100%;
+padding:14px;
+margin-top:15px;
+border:none;
+border-radius:12px;
 background:#00bfff;
 color:white;
-font-weight:bold;
+font-weight:700;
+font-size:15px;
 cursor:pointer;
 }
 
-button:hover{
-background:#0099cc;
-}
-
-.product{
-background:#222;
-padding:15px;
-border-radius:10px;
+#result{
 margin-top:15px;
+color:lime;
+font-weight:600;
 }
 
-.orders{
-background:#111;
-padding:15px;
-border-radius:10px;
+.packs-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
 margin-top:20px;
-color:lime;
+}
+
+.pack-card{
+background:#151515;
+border:1px solid #222;
+border-radius:18px;
+padding:18px;
+text-align:center;
+transition:0.3s;
+box-shadow:0 0 12px rgba(0,191,255,0.08);
+}
+
+.pack-card:hover{
+transform:translateY(-4px);
+box-shadow:0 0 20px rgba(0,191,255,0.3);
+}
+
+.diamond{
+font-size:19px;
+font-weight:700;
+margin-bottom:10px;
+color:#00bfff;
+}
+
+.price{
+font-size:22px;
+font-weight:700;
+margin-bottom:14px;
+}
+
+.pack-card button{
+background:#00bfff;
+border:none;
+padding:11px;
+width:100%;
+border-radius:12px;
+font-weight:700;
+color:white;
+cursor:pointer;
+}
+
+.payment-page{
+margin-top:25px;
+background:#151515;
+padding:22px;
+border-radius:18px;
+display:none;
+border:1px solid #222;
+}
+
+.payment-page h2{
+text-align:center;
+margin-bottom:15px;
+color:#00bfff;
+}
+
+.pay-box{
 text-align:center;
 }
 
-.receipt{
-background:#111;
-padding:15px;
-border-radius:10px;
-margin-top:20px;
-line-height:1.8;
+.qr{
+width:240px;
+border-radius:18px;
+margin:20px 0;
+border:4px solid #222;
 }
 
-.admin{
+.upi-text{
+color:#aaa;
+margin-bottom:18px;
+}
+
+.confirm-btn{
+background:limegreen;
+border:none;
+padding:14px;
+width:100%;
+border-radius:12px;
+font-weight:700;
+color:white;
+cursor:pointer;
+}
+
+.receipt{
+margin-top:20px;
+background:#111;
+padding:18px;
+border-radius:16px;
+line-height:2;
+border:1px solid #222;
 display:none;
 }
 
-.order-item{
-background:#222;
-padding:10px;
-border-radius:10px;
-margin-top:10px;
-}
-
-.success{
-color:lime;
-font-weight:bold;
-}
-
-.pending{
+.status-pending{
 color:orange;
-font-weight:bold;
+font-weight:700;
+}
+
+.orders{
+margin-top:20px;
+background:#151515;
+padding:15px;
+border-radius:15px;
+text-align:center;
+color:lime;
+font-weight:600;
+}
+
+footer{
+text-align:center;
+padding:25px;
+color:#666;
+font-size:14px;
+}
+
+@media(max-width:700px){
+
+.packs-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.qr{
+width:200px;
+}
+
 }
 
 </style>
@@ -123,170 +229,159 @@ DEADLY OFFICIAL STORE
 
 <div class="container">
 
-<div class="card">
+<div class="top-box">
+
 <h2>MLBB Name Checker</h2>
 
 <input type="text" id="uid" placeholder="Enter MLBB User ID">
+
 <input type="text" id="zone" placeholder="Enter Server ID">
 
-<button onclick="checkName()">Check Username</button>
+<button class="check-btn" onclick="checkName()">
+CHECK USERNAME
+</button>
 
 <p id="result"></p>
+
 </div>
 
-<div class="card">
-<h2>TOP UP PRODUCTS</h2>
+<div class="packs-grid">
 
-<div id="productGrid">
-
-<div class="product">
-<h3>Weekly Pass</h3>
-<p>₹145</p>
-<button onclick="selectProduct('Weekly Pass - ₹145')">Select</button>
+<div class="pack-card">
+<div class="diamond">💎 11</div>
+<div class="price">₹20</div>
+<button onclick="selectProduct('11 Diamonds - ₹20')">
+BUY
+</button>
 </div>
 
-<div class="product">
-<h3>Twilight Pass</h3>
-<p>₹799</p>
-<button onclick="selectProduct('Twilight Pass - ₹799')">Select</button>
+<div class="pack-card">
+<div class="diamond">💎 22</div>
+<div class="price">₹35</div>
+<button onclick="selectProduct('22 Diamonds - ₹35')">
+BUY
+</button>
 </div>
 
-<div class="product">
-<h3>11 Diamonds</h3>
-<p>₹20</p>
-<button onclick="selectProduct('11 Diamonds - ₹20')">Select</button>
+<div class="pack-card">
+<div class="diamond">💎 56</div>
+<div class="price">₹80</div>
+<button onclick="selectProduct('56 Diamonds - ₹80')">
+BUY
+</button>
 </div>
 
-<div class="product">
-<h3>22 Diamonds</h3>
-<p>₹35</p>
-<button onclick="selectProduct('22 Diamonds - ₹35')">Select</button>
+<div class="pack-card">
+<div class="diamond">💎 86</div>
+<div class="price">₹120</div>
+<button onclick="selectProduct('86 Diamonds - ₹120')">
+BUY
+</button>
 </div>
 
-<div class="product">
-<h3>56 Diamonds</h3>
-<p>₹80</p>
-<button onclick="selectProduct('56 Diamonds - ₹80')">Select</button>
+<div class="pack-card">
+<div class="diamond">💎 172</div>
+<div class="price">₹240</div>
+<button onclick="selectProduct('172 Diamonds - ₹240')">
+BUY
+</button>
 </div>
 
-<div class="product">
-<h3>86 Diamonds</h3>
-<p>₹120</p>
-<button onclick="selectProduct('86 Diamonds - ₹120')">Select</button>
+<div class="pack-card">
+<div class="diamond">💎 257</div>
+<div class="price">₹350</div>
+<button onclick="selectProduct('257 Diamonds - ₹350')">
+BUY
+</button>
 </div>
 
-<div class="product">
-<h3>172 Diamonds</h3>
-<p>₹240</p>
-<button onclick="selectProduct('172 Diamonds - ₹240')">Select</button>
+<div class="pack-card">
+<div class="diamond">💎 344</div>
+<div class="price">₹470</div>
+<button onclick="selectProduct('344 Diamonds - ₹470')">
+BUY
+</button>
 </div>
 
-<div class="product">
-<h3>257 Diamonds</h3>
-<p>₹350</p>
-<button onclick="selectProduct('257 Diamonds - ₹350')">Select</button>
+<div class="pack-card">
+<div class="diamond">💎 706</div>
+<div class="price">₹940</div>
+<button onclick="selectProduct('706 Diamonds - ₹940')">
+BUY
+</button>
 </div>
 
-<div class="product">
-<h3>344 Diamonds</h3>
-<p>₹470</p>
-<button onclick="selectProduct('344 Diamonds - ₹470')">Select</button>
+<div class="pack-card">
+<div class="diamond">WEEKLY PASS</div>
+<div class="price">₹145</div>
+<button onclick="selectProduct('Weekly Pass - ₹145')">
+BUY
+</button>
 </div>
 
-<div class="product">
-<h3>429 Diamonds</h3>
-<p>₹590</p>
-<button onclick="selectProduct('429 Diamonds - ₹590')">Select</button>
-</div>
-
-<div class="product">
-<h3>514 Diamonds</h3>
-<p>₹700</p>
-<button onclick="selectProduct('514 Diamonds - ₹700')">Select</button>
-</div>
-
-<div class="product">
-<h3>706 Diamonds</h3>
-<p>₹940</p>
-<button onclick="selectProduct('706 Diamonds - ₹940')">Select</button>
-</div>
-
-<div class="product">
-<h3>878 Diamonds</h3>
-<p>₹1170</p>
-<button onclick="selectProduct('878 Diamonds - ₹1170')">Select</button>
-</div>
-
-<div class="product">
-<h3>963 Diamonds</h3>
-<p>₹1280</p>
-<button onclick="selectProduct('963 Diamonds - ₹1280')">Select</button>
-</div>
-
-<div class="product">
-<h3>1412 Diamonds</h3>
-<p>₹1860</p>
-<button onclick="selectProduct('1412 Diamonds - ₹1860')">Select</button>
-</div>
-
-<div class="product">
-<h3>2195 Diamonds</h3>
-<p>₹2880</p>
-<button onclick="selectProduct('2195 Diamonds - ₹2880')">Select</button>
-</div>
-
-<div class="product">
-<h3>Starlight Membership</h3>
-<p>₹300</p>
-<button onclick="selectProduct('Starlight Membership - ₹300')">Select</button>
+<div class="pack-card">
+<div class="diamond">STARLIGHT</div>
+<div class="price">₹300</div>
+<button onclick="selectProduct('Starlight Membership - ₹300')">
+BUY
+</button>
 </div>
 
 </div>
 
-<input type="hidden" id="product">
+<div class="payment-page" id="paymentPage">
 
-<button onclick="placeOrder()">Order Now</button>
+<h2>Complete Payment</h2>
+
+<div class="pay-box">
+
+<p id="selectedPack"></p>
+
+<img src="https://i.imgur.com/2s9X8Zx.png"
+class="qr">
+
+<p class="upi-text">
+Scan QR & Complete Payment
+</p>
+
+<button class="confirm-btn" onclick="confirmPayment()">
+I PAID
+</button>
+
 </div>
 
-<div class="receipt" id="receipt" style="display:none"></div>
+</div>
+
+<div class="receipt" id="receipt"></div>
 
 <div class="orders" id="liveOrders">
 Recent Order Loading...
 </div>
 
-<div class="card">
-<h2>Admin Login</h2>
-<input type="password" id="adminPass" placeholder="Enter Admin Password">
-<button onclick="loginAdmin()">Login</button>
 </div>
 
-<div class="card admin" id="adminPanel">
-<h2>ADMIN PANEL</h2>
-
-<p>Total Visits: <span id="visits"></span></p>
-<p>Total Orders: <span id="totalOrders"></span></p>
-
-<div id="adminOrders"></div>
-</div>
-
-</div>
+<footer>
+© DEADLY OFFICIAL STORE
+</footer>
 
 <script>
 
-let visits = localStorage.getItem("visits") || 0;
-visits++;
-localStorage.setItem("visits", visits);
-
-let orders = JSON.parse(localStorage.getItem("orders") || "[]");
+let selectedProduct = "";
 
 async function checkName(){
 
 let uid = document.getElementById("uid").value;
 let zone = document.getElementById("zone").value;
 
+document.getElementById("result").innerHTML =
+"Checking...";
+
 let apis = [
+
 `https://api.isan.eu.org/nickname/ml?id=${uid}&zone=${zone}`,
+
 `https://api.isan.eu.org/nickname/ml?id=${uid}&server=${zone}`
+
 ];
 
 let success = false;
@@ -295,171 +390,127 @@ for(let api of apis){
 
 try{
 
-let res = await fetch(api);
-let data = await res.json();
+let response = await fetch(api);
 
-let username = data.nickname || data.name || data.username;
+let data = await response.json();
+
+let username =
+data.nickname ||
+data.name ||
+data.username;
 
 if(username){
-
-success = true;
 
 document.getElementById("result").innerHTML =
 "Username: " + username;
 
+success = true;
+
 break;
+
 }
 
 }catch(err){}
+
 }
 
 if(!success){
+
 document.getElementById("result").innerHTML =
 "API Busy or Player Not Found";
-}
-}
-
-function selectProduct(productName){
-
-localStorage.setItem("selectedProduct", productName);
-
-alert(productName + " Selected");
 
 }
 
-function placeOrder(){
+}
+
+function selectProduct(product){
+
+selectedProduct = product;
+
+document.getElementById("paymentPage").style.display =
+"block";
+
+document.getElementById("selectedPack").innerHTML =
+"Selected Pack: " + product;
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:'smooth'
+});
+
+}
+
+function confirmPayment(){
 
 let uid = document.getElementById("uid").value;
 let zone = document.getElementById("zone").value;
-let product = localStorage.getItem("selectedProduct");
 
 if(uid == "" || zone == ""){
-alert("Enter ID and Server ID");
-return;
-}
 
-let amount = product.split("₹")[1];
+alert("Enter MLBB ID & Server ID");
+
+return;
+
+}
 
 let orderId = "ORD" + Date.now();
 
-let order = {
-id:orderId,
-uid,
-zone,
-product,
-amount,
-status:"PENDING"
-};
-
-orders.push(order);
-
-localStorage.setItem("orders", JSON.stringify(orders));
-
 let receipt = `
 <h2>PAYMENT RECEIPT</h2>
+
 <br>
+
 Order ID: ${orderId}<br>
+
 MLBB ID: ${uid}<br>
+
 Server ID: ${zone}<br>
-Pack: ${product}<br>
-Amount: ₹${amount}<br>
-Status: <span class='pending'>PENDING</span>
-`;
 
-document.getElementById("receipt").style.display = "block";
-document.getElementById("receipt").innerHTML = receipt;
+Pack: ${selectedProduct}<br>
 
-let msg = `Hello DEADLY OFFICIAL STORE,%0A%0AI want to order:%0A${product}%0A%0AOrder ID: ${orderId}%0AMLBB ID: ${uid}%0AServer ID: ${zone}`;
-
-window.open(`https://wa.me/918787821704?text=${msg}`);
-
-loadAdminOrders();
-}
-
-function loginAdmin(){
-
-let pass = document.getElementById("adminPass").value;
-
-if(pass == "RUPAM120"){
-
-document.getElementById("adminPanel").style.display = "block";
-
-loadAdminOrders();
-
-}else{
-alert("Wrong Password");
-}
-}
-
-function loadAdminOrders(){
-
-let adminOrders = document.getElementById("adminOrders");
-adminOrders.innerHTML = "";
-
-let orders = JSON.parse(localStorage.getItem("orders") || "[]");
-
-for(let i=0;i<orders.length;i++){
-
-let order = orders[i];
-
-adminOrders.innerHTML += `
-<div class='order-item'>
-
-Order ID: ${order.id}<br>
-MLBB ID: ${order.uid}<br>
-Server: ${order.zone}<br>
-Pack: ${order.product}<br>
 Status:
-<span class='${order.status == "SUCCESS" ? "success" : "pending"}'>
-${order.status}
+<span class="status-pending">
+PENDING
 </span>
-
-<button onclick='markSuccess(${i})'>Mark Success</button>
-
-</div>
-`;
-}
-
-
-document.getElementById("visits").innerHTML = visits;
-document.getElementById("totalOrders").innerHTML = orders.length;
-}
-
-function markSuccess(index){
-
-orders[index].status = "SUCCESS";
-
-localStorage.setItem("orders", JSON.stringify(orders));
-
-loadAdminOrders();
-
-updateReceipt(orders[index]);
-}
-
-function updateReceipt(order){
-
-let receipt = `
-<h2>PAYMENT RECEIPT</h2>
-<br>
-Order ID: ${order.id}<br>
-MLBB ID: ${order.uid}<br>
-Server ID: ${order.zone}<br>
-Pack: ${order.product}<br>
-Amount: ₹${order.amount}<br>
-Status: <span class='success'>SUCCESS</span>
 `;
 
-if(document.getElementById("receipt").innerHTML.includes(order.id)){
+document.getElementById("receipt").style.display =
+"block";
 
-document.getElementById("receipt").innerHTML = receipt;
-}
+document.getElementById("receipt").innerHTML =
+receipt;
+
+let msg =
+`Hello DEADLY OFFICIAL STORE,
+
+I PAID for:
+
+${selectedProduct}
+
+Order ID: ${orderId}
+
+MLBB ID: ${uid}
+SERVER ID: ${zone}
+
+Please process my order.`;
+
+window.open(
+`https://wa.me/918787821704?text=${encodeURIComponent(msg)}`,
+'_blank'
+);
+
 }
 
 let fakeOrders = [
+
 "Rahul purchased Weekly Pass",
 "Akash purchased 86 Diamonds",
-"Sahil purchased Twilight Pass",
-"Rohan purchased 172 Diamonds"
+"Sahil purchased 706 Diamonds",
+"Rohan purchased Twilight Pass",
+"Ankit purchased 257 Diamonds",
+"Vikram purchased Starlight",
+"Neeraj purchased 344 Diamonds"
+
 ];
 
 let x = 0;
@@ -472,7 +523,9 @@ document.getElementById("liveOrders").innerHTML =
 x++;
 
 if(x >= fakeOrders.length){
+
 x = 0;
+
 }
 
 },2000);
