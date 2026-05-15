@@ -190,6 +190,11 @@ color:orange;
 font-weight:700;
 }
 
+.status-success{
+color:lime;
+font-weight:700;
+}
+
 .orders{
 margin-top:20px;
 background:#151515;
@@ -200,23 +205,47 @@ color:lime;
 font-weight:600;
 }
 
+.admin-login,
+.admin-panel{
+margin-top:25px;
+background:#151515;
+padding:20px;
+border-radius:18px;
+border:1px solid #222;
+}
+
+.admin-panel h2,
+.admin-login h2{
+margin-bottom:15px;
+color:#00bfff;
+}
+
+.admin-order{
+background:#111;
+padding:15px;
+border-radius:14px;
+margin-top:15px;
+line-height:1.8;
+border:1px solid #222;
+}
+
+.success-btn{
+background:limegreen;
+border:none;
+padding:12px;
+width:100%;
+border-radius:10px;
+margin-top:10px;
+font-weight:700;
+color:white;
+cursor:pointer;
+}
+
 footer{
 text-align:center;
 padding:25px;
 color:#666;
 font-size:14px;
-}
-
-@media(max-width:700px){
-
-.packs-grid{
-grid-template-columns:repeat(2,1fr);
-}
-
-.qr{
-width:200px;
-}
-
 }
 
 </style>
@@ -248,83 +277,45 @@ CHECK USERNAME
 <div class="packs-grid">
 
 <div class="pack-card">
-<div class="diamond">💎 11</div>
-<div class="price">₹20</div>
-<button onclick="selectProduct('11 Diamonds - ₹20')">
-BUY
-</button>
-</div>
-
-<div class="pack-card">
-<div class="diamond">💎 22</div>
-<div class="price">₹35</div>
-<button onclick="selectProduct('22 Diamonds - ₹35')">
-BUY
-</button>
-</div>
-
-<div class="pack-card">
-<div class="diamond">💎 56</div>
-<div class="price">₹80</div>
-<button onclick="selectProduct('56 Diamonds - ₹80')">
-BUY
-</button>
-</div>
-
-<div class="pack-card">
 <div class="diamond">💎 86</div>
 <div class="price">₹120</div>
-<button onclick="selectProduct('86 Diamonds - ₹120')">
-BUY
-</button>
+<button onclick="selectProduct('86 Diamonds - ₹120')">BUY</button>
 </div>
 
 <div class="pack-card">
 <div class="diamond">💎 172</div>
 <div class="price">₹240</div>
-<button onclick="selectProduct('172 Diamonds - ₹240')">
-BUY
-</button>
+<button onclick="selectProduct('172 Diamonds - ₹240')">BUY</button>
 </div>
 
 <div class="pack-card">
 <div class="diamond">💎 257</div>
 <div class="price">₹350</div>
-<button onclick="selectProduct('257 Diamonds - ₹350')">
-BUY
-</button>
+<button onclick="selectProduct('257 Diamonds - ₹350')">BUY</button>
 </div>
 
 <div class="pack-card">
 <div class="diamond">💎 344</div>
 <div class="price">₹470</div>
-<button onclick="selectProduct('344 Diamonds - ₹470')">
-BUY
-</button>
+<button onclick="selectProduct('344 Diamonds - ₹470')">BUY</button>
 </div>
 
 <div class="pack-card">
 <div class="diamond">💎 706</div>
 <div class="price">₹940</div>
-<button onclick="selectProduct('706 Diamonds - ₹940')">
-BUY
-</button>
+<button onclick="selectProduct('706 Diamonds - ₹940')">BUY</button>
 </div>
 
 <div class="pack-card">
 <div class="diamond">WEEKLY PASS</div>
 <div class="price">₹145</div>
-<button onclick="selectProduct('Weekly Pass - ₹145')">
-BUY
-</button>
+<button onclick="selectProduct('Weekly Pass - ₹145')">BUY</button>
 </div>
 
 <div class="pack-card">
 <div class="diamond">STARLIGHT</div>
 <div class="price">₹300</div>
-<button onclick="selectProduct('Starlight Membership - ₹300')">
-BUY
-</button>
+<button onclick="selectProduct('Starlight Membership - ₹300')">BUY</button>
 </div>
 
 </div>
@@ -337,8 +328,7 @@ BUY
 
 <p id="selectedPack"></p>
 
-<img src="https://i.imgur.com/2s9X8Zx.png"
-class="qr">
+<img src="https://i.imgur.com/2s9X8Zx.png" class="qr">
 
 <p class="upi-text">
 Scan QR & Complete Payment
@@ -356,6 +346,31 @@ I PAID
 
 <div class="orders" id="liveOrders">
 Recent Order Loading...
+</div>
+
+<div class="admin-login">
+
+<h2>ADMIN PANEL</h2>
+
+<input type="password"
+id="adminPassword"
+placeholder="Enter Admin Password">
+
+<button class="check-btn"
+onclick="loginAdmin()">
+LOGIN
+</button>
+
+</div>
+
+<div class="admin-panel"
+id="adminPanel"
+style="display:none;">
+
+<h2>ORDER CONTROL PANEL</h2>
+
+<div id="adminOrders"></div>
+
 </div>
 
 </div>
@@ -455,6 +470,26 @@ return;
 
 let orderId = "ORD" + Date.now();
 
+let order = {
+
+id:orderId,
+uid:uid,
+zone:zone,
+product:selectedProduct,
+status:"PENDING"
+
+};
+
+let orders =
+JSON.parse(localStorage.getItem("orders") || "[]");
+
+orders.push(order);
+
+localStorage.setItem(
+"orders",
+JSON.stringify(orders)
+);
+
 let receipt = `
 <h2>PAYMENT RECEIPT</h2>
 
@@ -480,6 +515,8 @@ document.getElementById("receipt").style.display =
 document.getElementById("receipt").innerHTML =
 receipt;
 
+loadOrders();
+
 let msg =
 `Hello DEADLY OFFICIAL STORE,
 
@@ -501,6 +538,109 @@ window.open(
 
 }
 
+function loginAdmin(){
+
+let pass =
+document.getElementById("adminPassword").value;
+
+if(pass == "RUPAM120"){
+
+document.getElementById("adminPanel")
+.style.display = "block";
+
+loadOrders();
+
+}else{
+
+alert("Wrong Password");
+
+}
+
+}
+
+function loadOrders(){
+
+let orders =
+JSON.parse(localStorage.getItem("orders") || "[]");
+
+let adminOrders =
+document.getElementById("adminOrders");
+
+adminOrders.innerHTML = "";
+
+orders.reverse().forEach((order,index)=>{
+
+adminOrders.innerHTML += `
+
+<div class="admin-order">
+
+Order ID: ${order.id}<br>
+
+MLBB ID: ${order.uid}<br>
+
+Server ID: ${order.zone}<br>
+
+Pack: ${order.product}<br>
+
+Status:
+
+<span class="${
+order.status == "SUCCESS"
+? "status-success"
+: "status-pending"
+}">
+
+${order.status}
+
+</span>
+
+${
+order.status == "PENDING"
+?
+
+`<button class="success-btn"
+onclick="markSuccess('${order.id}')">
+MARK SUCCESS
+</button>`
+
+:
+
+""
+
+}
+
+</div>
+
+`;
+
+});
+
+}
+
+function markSuccess(orderId){
+
+let orders =
+JSON.parse(localStorage.getItem("orders") || "[]");
+
+orders.forEach(order=>{
+
+if(order.id == orderId){
+
+order.status = "SUCCESS";
+
+}
+
+});
+
+localStorage.setItem(
+"orders",
+JSON.stringify(orders)
+);
+
+loadOrders();
+
+}
+
 let fakeOrders = [
 
 "Rahul purchased Weekly Pass",
@@ -508,8 +648,7 @@ let fakeOrders = [
 "Sahil purchased 706 Diamonds",
 "Rohan purchased Twilight Pass",
 "Ankit purchased 257 Diamonds",
-"Vikram purchased Starlight",
-"Neeraj purchased 344 Diamonds"
+"Vikram purchased Starlight"
 
 ];
 
