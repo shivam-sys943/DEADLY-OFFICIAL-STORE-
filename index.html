@@ -137,12 +137,113 @@ DEADLY OFFICIAL STORE
 <div class="card">
 <h2>TOP UP PRODUCTS</h2>
 
-<select id="product">
-<option>Weekly Pass - ₹145</option>
-<option>86 Diamonds - ₹120</option>
-<option>172 Diamonds - ₹240</option>
-<option>Twilight Pass - ₹799</option>
-</select>
+<div id="productGrid">
+
+<div class="product">
+<h3>Weekly Pass</h3>
+<p>₹145</p>
+<button onclick="selectProduct('Weekly Pass - ₹145')">Select</button>
+</div>
+
+<div class="product">
+<h3>Twilight Pass</h3>
+<p>₹799</p>
+<button onclick="selectProduct('Twilight Pass - ₹799')">Select</button>
+</div>
+
+<div class="product">
+<h3>11 Diamonds</h3>
+<p>₹20</p>
+<button onclick="selectProduct('11 Diamonds - ₹20')">Select</button>
+</div>
+
+<div class="product">
+<h3>22 Diamonds</h3>
+<p>₹35</p>
+<button onclick="selectProduct('22 Diamonds - ₹35')">Select</button>
+</div>
+
+<div class="product">
+<h3>56 Diamonds</h3>
+<p>₹80</p>
+<button onclick="selectProduct('56 Diamonds - ₹80')">Select</button>
+</div>
+
+<div class="product">
+<h3>86 Diamonds</h3>
+<p>₹120</p>
+<button onclick="selectProduct('86 Diamonds - ₹120')">Select</button>
+</div>
+
+<div class="product">
+<h3>172 Diamonds</h3>
+<p>₹240</p>
+<button onclick="selectProduct('172 Diamonds - ₹240')">Select</button>
+</div>
+
+<div class="product">
+<h3>257 Diamonds</h3>
+<p>₹350</p>
+<button onclick="selectProduct('257 Diamonds - ₹350')">Select</button>
+</div>
+
+<div class="product">
+<h3>344 Diamonds</h3>
+<p>₹470</p>
+<button onclick="selectProduct('344 Diamonds - ₹470')">Select</button>
+</div>
+
+<div class="product">
+<h3>429 Diamonds</h3>
+<p>₹590</p>
+<button onclick="selectProduct('429 Diamonds - ₹590')">Select</button>
+</div>
+
+<div class="product">
+<h3>514 Diamonds</h3>
+<p>₹700</p>
+<button onclick="selectProduct('514 Diamonds - ₹700')">Select</button>
+</div>
+
+<div class="product">
+<h3>706 Diamonds</h3>
+<p>₹940</p>
+<button onclick="selectProduct('706 Diamonds - ₹940')">Select</button>
+</div>
+
+<div class="product">
+<h3>878 Diamonds</h3>
+<p>₹1170</p>
+<button onclick="selectProduct('878 Diamonds - ₹1170')">Select</button>
+</div>
+
+<div class="product">
+<h3>963 Diamonds</h3>
+<p>₹1280</p>
+<button onclick="selectProduct('963 Diamonds - ₹1280')">Select</button>
+</div>
+
+<div class="product">
+<h3>1412 Diamonds</h3>
+<p>₹1860</p>
+<button onclick="selectProduct('1412 Diamonds - ₹1860')">Select</button>
+</div>
+
+<div class="product">
+<h3>2195 Diamonds</h3>
+<p>₹2880</p>
+<button onclick="selectProduct('2195 Diamonds - ₹2880')">Select</button>
+</div>
+
+<div class="product">
+<h3>Starlight Membership</h3>
+<p>₹300</p>
+<button onclick="selectProduct('Starlight Membership - ₹300')">Select</button>
+</div>
+
+</div>
+
+<input type="hidden" id="product">
 
 <button onclick="placeOrder()">Order Now</button>
 </div>
@@ -218,11 +319,19 @@ document.getElementById("result").innerHTML =
 }
 }
 
+function selectProduct(productName){
+
+localStorage.setItem("selectedProduct", productName);
+
+alert(productName + " Selected");
+
+}
+
 function placeOrder(){
 
 let uid = document.getElementById("uid").value;
 let zone = document.getElementById("zone").value;
-let product = document.getElementById("product").value;
+let product = localStorage.getItem("selectedProduct");
 
 if(uid == "" || zone == ""){
 alert("Enter ID and Server ID");
