@@ -43,7 +43,7 @@ margin:auto;
 padding:20px 0;
 }
 
-.top-box{
+.card{
 background:#151515;
 padding:20px;
 border-radius:18px;
@@ -51,7 +51,7 @@ margin-bottom:20px;
 border:1px solid #222;
 }
 
-.top-box h2{
+.card h2{
 margin-bottom:15px;
 color:#00bfff;
 }
@@ -68,23 +68,21 @@ color:white;
 font-size:15px;
 }
 
-.check-btn{
+button{
 width:100%;
-padding:14px;
-margin-top:15px;
+padding:13px;
+margin-top:12px;
 border:none;
 border-radius:12px;
 background:#00bfff;
 color:white;
 font-weight:700;
-font-size:15px;
 cursor:pointer;
+font-size:15px;
 }
 
-#result{
-margin-top:15px;
-color:lime;
-font-weight:600;
+.google-btn{
+background:#db4437;
 }
 
 .packs-grid{
@@ -110,7 +108,7 @@ box-shadow:0 0 20px rgba(0,191,255,0.3);
 }
 
 .diamond{
-font-size:19px;
+font-size:18px;
 font-weight:700;
 margin-bottom:10px;
 color:#00bfff;
@@ -119,60 +117,7 @@ color:#00bfff;
 .price{
 font-size:22px;
 font-weight:700;
-margin-bottom:14px;
-}
-
-.pack-card button{
-background:#00bfff;
-border:none;
-padding:11px;
-width:100%;
-border-radius:12px;
-font-weight:700;
-color:white;
-cursor:pointer;
-}
-
-.payment-page{
-margin-top:25px;
-background:#151515;
-padding:22px;
-border-radius:18px;
-display:none;
-border:1px solid #222;
-}
-
-.payment-page h2{
-text-align:center;
-margin-bottom:15px;
-color:#00bfff;
-}
-
-.pay-box{
-text-align:center;
-}
-
-.qr{
-width:240px;
-border-radius:18px;
-margin:20px 0;
-border:4px solid #222;
-}
-
-.upi-text{
-color:#aaa;
-margin-bottom:18px;
-}
-
-.confirm-btn{
-background:limegreen;
-border:none;
-padding:14px;
-width:100%;
-border-radius:12px;
-font-weight:700;
-color:white;
-cursor:pointer;
+margin-bottom:12px;
 }
 
 .receipt{
@@ -185,14 +130,14 @@ border:1px solid #222;
 display:none;
 }
 
-.status-pending{
+.pending{
 color:orange;
-font-weight:700;
+font-weight:bold;
 }
 
-.status-success{
+.success{
 color:lime;
-font-weight:700;
+font-weight:bold;
 }
 
 .orders{
@@ -205,22 +150,11 @@ color:lime;
 font-weight:600;
 }
 
-.admin-login,
-.admin-panel{
-margin-top:25px;
-background:#151515;
-padding:20px;
-border-radius:18px;
-border:1px solid #222;
+.admin{
+display:none;
 }
 
-.admin-panel h2,
-.admin-login h2{
-margin-bottom:15px;
-color:#00bfff;
-}
-
-.admin-order{
+.order-item{
 background:#111;
 padding:15px;
 border-radius:14px;
@@ -231,21 +165,18 @@ border:1px solid #222;
 
 .success-btn{
 background:limegreen;
-border:none;
-padding:12px;
-width:100%;
-border-radius:10px;
-margin-top:10px;
-font-weight:700;
-color:white;
-cursor:pointer;
+}
+
+.qr{
+width:230px;
+margin-top:20px;
+border-radius:18px;
 }
 
 footer{
 text-align:center;
-padding:25px;
-color:#666;
-font-size:14px;
+padding:20px;
+color:#777;
 }
 
 </style>
@@ -258,19 +189,52 @@ DEADLY OFFICIAL STORE
 
 <div class="container">
 
-<div class="top-box">
+<div class="card">
+
+<h2>LOGIN PANEL</h2>
+
+<input type="email"
+id="loginEmail"
+placeholder="Enter Gmail">
+
+<input type="password"
+id="loginPassword"
+placeholder="Enter Password">
+
+<button onclick="loginSystem()">
+LOGIN
+</button>
+
+<button class="google-btn"
+onclick="googleLogin()">
+LOGIN WITH GOOGLE
+</button>
+
+<p id="loginStatus"
+style="margin-top:10px;color:#aaa;">
+</p>
+
+</div>
+
+<div class="card">
 
 <h2>MLBB Name Checker</h2>
 
-<input type="text" id="uid" placeholder="Enter MLBB User ID">
+<input type="text"
+id="uid"
+placeholder="Enter MLBB User ID">
 
-<input type="text" id="zone" placeholder="Enter Server ID">
+<input type="text"
+id="zone"
+placeholder="Enter Server ID">
 
-<button class="check-btn" onclick="checkName()">
+<button onclick="checkName()">
 CHECK USERNAME
 </button>
 
-<p id="result"></p>
+<p id="result"
+style="margin-top:15px;color:lime;">
+</p>
 
 </div>
 
@@ -279,95 +243,104 @@ CHECK USERNAME
 <div class="pack-card">
 <div class="diamond">💎 86</div>
 <div class="price">₹120</div>
-<button onclick="selectProduct('86 Diamonds - ₹120')">BUY</button>
+<button onclick="selectProduct('86 Diamonds - ₹120')">
+BUY
+</button>
 </div>
 
 <div class="pack-card">
 <div class="diamond">💎 172</div>
 <div class="price">₹240</div>
-<button onclick="selectProduct('172 Diamonds - ₹240')">BUY</button>
+<button onclick="selectProduct('172 Diamonds - ₹240')">
+BUY
+</button>
 </div>
 
 <div class="pack-card">
 <div class="diamond">💎 257</div>
 <div class="price">₹350</div>
-<button onclick="selectProduct('257 Diamonds - ₹350')">BUY</button>
+<button onclick="selectProduct('257 Diamonds - ₹350')">
+BUY
+</button>
 </div>
 
 <div class="pack-card">
 <div class="diamond">💎 344</div>
 <div class="price">₹470</div>
-<button onclick="selectProduct('344 Diamonds - ₹470')">BUY</button>
+<button onclick="selectProduct('344 Diamonds - ₹470')">
+BUY
+</button>
 </div>
 
 <div class="pack-card">
 <div class="diamond">💎 706</div>
 <div class="price">₹940</div>
-<button onclick="selectProduct('706 Diamonds - ₹940')">BUY</button>
+<button onclick="selectProduct('706 Diamonds - ₹940')">
+BUY
+</button>
 </div>
 
 <div class="pack-card">
 <div class="diamond">WEEKLY PASS</div>
 <div class="price">₹145</div>
-<button onclick="selectProduct('Weekly Pass - ₹145')">BUY</button>
+<button onclick="selectProduct('Weekly Pass - ₹145')">
+BUY
+</button>
 </div>
 
 <div class="pack-card">
 <div class="diamond">STARLIGHT</div>
 <div class="price">₹300</div>
-<button onclick="selectProduct('Starlight Membership - ₹300')">BUY</button>
+<button onclick="selectProduct('Starlight Membership - ₹300')">
+BUY
+</button>
 </div>
 
 </div>
 
-<div class="payment-page" id="paymentPage">
+<div class="card"
+id="paymentBox"
+style="display:none;">
 
-<h2>Complete Payment</h2>
-
-<div class="pay-box">
+<h2>COMPLETE PAYMENT</h2>
 
 <p id="selectedPack"></p>
 
-<img src="https://i.imgur.com/2s9X8Zx.png" class="qr">
+<center>
 
-<p class="upi-text">
-Scan QR & Complete Payment
-</p>
+<img src="https://i.imgur.com/2s9X8Zx.png"
+class="qr">
 
-<button class="confirm-btn" onclick="confirmPayment()">
+</center>
+
+<button onclick="confirmPayment()">
 I PAID
 </button>
 
 </div>
 
-</div>
+<div class="receipt"
+id="receipt"></div>
 
-<div class="receipt" id="receipt"></div>
+<div class="orders"
+id="liveOrders">
 
-<div class="orders" id="liveOrders">
 Recent Order Loading...
+
 </div>
 
-<div class="admin-login">
+<div class="card admin"
+id="adminPanel">
 
 <h2>ADMIN PANEL</h2>
 
-<input type="password"
-id="adminPassword"
-placeholder="Enter Admin Password">
+<p>Total Visits:
+<span id="visits"></span>
+</p>
 
-<button class="check-btn"
-onclick="loginAdmin()">
-LOGIN
-</button>
-
-</div>
-
-<div class="admin-panel"
-id="adminPanel"
-style="display:none;">
-
-<h2>ORDER CONTROL PANEL</h2>
+<p>Total Orders:
+<span id="totalOrders"></span>
+</p>
 
 <div id="adminOrders"></div>
 
@@ -381,12 +354,25 @@ style="display:none;">
 
 <script>
 
+let visits =
+localStorage.getItem("visits") || 0;
+
+visits++;
+
+localStorage.setItem("visits", visits);
+
+let orders =
+JSON.parse(localStorage.getItem("orders") || "[]");
+
 let selectedProduct = "";
 
 async function checkName(){
 
-let uid = document.getElementById("uid").value;
-let zone = document.getElementById("zone").value;
+let uid =
+document.getElementById("uid").value;
+
+let zone =
+document.getElementById("zone").value;
 
 document.getElementById("result").innerHTML =
 "Checking...";
@@ -442,10 +428,11 @@ function selectProduct(product){
 
 selectedProduct = product;
 
-document.getElementById("paymentPage").style.display =
-"block";
+document.getElementById("paymentBox")
+.style.display = "block";
 
-document.getElementById("selectedPack").innerHTML =
+document.getElementById("selectedPack")
+.innerHTML =
 "Selected Pack: " + product;
 
 window.scrollTo({
@@ -457,8 +444,11 @@ behavior:'smooth'
 
 function confirmPayment(){
 
-let uid = document.getElementById("uid").value;
-let zone = document.getElementById("zone").value;
+let uid =
+document.getElementById("uid").value;
+
+let zone =
+document.getElementById("zone").value;
 
 if(uid == "" || zone == ""){
 
@@ -479,9 +469,6 @@ product:selectedProduct,
 status:"PENDING"
 
 };
-
-let orders =
-JSON.parse(localStorage.getItem("orders") || "[]");
 
 orders.push(order);
 
@@ -504,16 +491,16 @@ Server ID: ${zone}<br>
 Pack: ${selectedProduct}<br>
 
 Status:
-<span class="status-pending">
+<span class="pending">
 PENDING
 </span>
 `;
 
-document.getElementById("receipt").style.display =
-"block";
+document.getElementById("receipt")
+.style.display = "block";
 
-document.getElementById("receipt").innerHTML =
-receipt;
+document.getElementById("receipt")
+.innerHTML = receipt;
 
 loadOrders();
 
@@ -538,21 +525,48 @@ window.open(
 
 }
 
-function loginAdmin(){
+function loginSystem(){
 
-let pass =
-document.getElementById("adminPassword").value;
+let email =
+document.getElementById("loginEmail").value;
 
-if(pass == "RUPAM120"){
+let password =
+document.getElementById("loginPassword").value;
+
+if(
+email ==
+"deadlyofficialstore@gmail.com"
+&&
+password ==
+"RUPAM120"
+){
+
+localStorage.setItem(
+"adminLoggedIn",
+"true"
+);
 
 document.getElementById("adminPanel")
 .style.display = "block";
 
 loadOrders();
 
+document.getElementById("loginStatus")
+.innerHTML =
+"Admin Login Successful";
+
 }else{
 
-alert("Wrong Password");
+localStorage.setItem(
+"adminLoggedIn",
+"false"
+);
+
+document.getElementById("loginStatus")
+.innerHTML =
+"Customer Login Successful";
+
+alert("Customer Login Successful");
 
 }
 
@@ -572,7 +586,7 @@ orders.reverse().forEach((order,index)=>{
 
 adminOrders.innerHTML += `
 
-<div class="admin-order">
+<div class="order-item">
 
 Order ID: ${order.id}<br>
 
@@ -586,8 +600,8 @@ Status:
 
 <span class="${
 order.status == "SUCCESS"
-? "status-success"
-: "status-pending"
+? "success"
+: "pending"
 }">
 
 ${order.status}
@@ -615,6 +629,12 @@ MARK SUCCESS
 
 });
 
+document.getElementById("visits")
+.innerHTML = visits;
+
+document.getElementById("totalOrders")
+.innerHTML = orders.length;
+
 }
 
 function markSuccess(orderId){
@@ -641,13 +661,34 @@ loadOrders();
 
 }
 
+window.onload = function(){
+
+if(
+localStorage.getItem("adminLoggedIn")
+== "true"
+){
+
+document.getElementById("adminPanel")
+.style.display = "block";
+
+loadOrders();
+
+}
+
+}
+
 let fakeOrders = [
 
 "Rahul purchased Weekly Pass",
+
 "Akash purchased 86 Diamonds",
+
 "Sahil purchased 706 Diamonds",
+
 "Rohan purchased Twilight Pass",
+
 "Ankit purchased 257 Diamonds",
+
 "Vikram purchased Starlight"
 
 ];
@@ -656,7 +697,8 @@ let x = 0;
 
 setInterval(()=>{
 
-document.getElementById("liveOrders").innerHTML =
+document.getElementById("liveOrders")
+.innerHTML =
 "Recent Order: " + fakeOrders[x];
 
 x++;
@@ -668,6 +710,76 @@ x = 0;
 }
 
 },2000);
+
+</script>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getAuth,
+GoogleAuthProvider,
+signInWithPopup
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyDvx2NgreqoQo4SFgbR-PGKDSDfs_ZMlP0",
+
+authDomain: "deadly-official-store.firebaseapp.com",
+
+projectId: "deadly-official-store",
+
+storageBucket: "deadly-official-store.firebasestorage.app",
+
+messagingSenderId: "645553796088",
+
+appId: "1:645553796088:web:6cf67888ec2709f0ca9c0d",
+
+measurementId: "G-Z7FBP88J9X"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const provider = new GoogleAuthProvider();
+
+window.googleLogin = async function(){
+
+try{
+
+const result =
+await signInWithPopup(auth, provider);
+
+const user = result.user;
+
+alert(
+"Logged in as " +
+user.displayName
+);
+
+if(
+user.email ==
+"deadlyofficialstore@gmail.com"
+){
+
+document.getElementById("adminPanel")
+.style.display = "block";
+
+loadOrders();
+
+}
+
+}catch(error){
+
+alert(error.message);
+
+}
+
+}
 
 </script>
 
