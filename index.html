@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEADLY OFFICIAL STORE</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#0d0d0d;
+color:white;
+}
+
+header{
+background:#111;
+padding:20px;
+text-align:center;
+font-size:28px;
+font-weight:bold;
+color:#00bfff;
+box-shadow:0 0 10px #00bfff;
+}
+
+.container{
+width:95%;
+max-width:500px;
+margin:auto;
+padding:20px 0;
+}
+
+.card{
+background:#1a1a1a;
+padding:20px;
+border-radius:15px;
+margin-bottom:20px;
+}
+
+input,button,select{
+width:100%;
+padding:14px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+font-size:16px;
+}
+
+input,select{
+background:#2a2a2a;
+color:white;
+}
+
+button{
+background:#00bfff;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#0099cc;
+}
+
+.product{
+background:#222;
+padding:15px;
+border-radius:10px;
+margin-top:15px;
+}
+
+.orders{
+background:#111;
+padding:15px;
+border-radius:10px;
+margin-top:20px;
+color:lime;
+text-align:center;
+}
+
+.receipt{
+background:#111;
+padding:15px;
+border-radius:10px;
+margin-top:20px;
+line-height:1.8;
+}
+
+.admin{
+display:none;
+}
+
+.order-item{
+background:#222;
+padding:10px;
+border-radius:10px;
+margin-top:10px;
+}
+
+.success{
+color:lime;
+font-weight:bold;
+}
+
+.pending{
+color:orange;
+font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+DEADLY OFFICIAL STORE
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>MLBB Name Checker</h2>
+
+<input type="text" id="uid" placeholder="Enter MLBB User ID">
+<input type="text" id="zone" placeholder="Enter Server ID">
+
+<button onclick="checkName()">Check Username</button>
+
+<p id="result"></p>
+</div>
+
+<div class="card">
+<h2>TOP UP PRODUCTS</h2>
+
+<select id="product">
+<option>Weekly Pass - ₹145</option>
+<option>86 Diamonds - ₹120</option>
+<option>172 Diamonds - ₹240</option>
+<option>Twilight Pass - ₹799</option>
+</select>
+
+<button onclick="placeOrder()">Order Now</button>
+</div>
+
+<div class="receipt" id="receipt" style="display:none"></div>
+
+<div class="orders" id="liveOrders">
+Recent Order Loading...
+</div>
+
+<div class="card">
+<h2>Admin Login</h2>
+<input type="password" id="adminPass" placeholder="Enter Admin Password">
+<button onclick="loginAdmin()">Login</button>
+</div>
+
+<div class="card admin" id="adminPanel">
+<h2>ADMIN PANEL</h2>
+
+<p>Total Visits: <span id="visits"></span></p>
+<p>Total Orders: <span id="totalOrders"></span></p>
+
+<div id="adminOrders"></div>
+</div>
+
+</div>
+
+<script>
+
+let visits = localStorage.getItem("visits") || 0;
+visits++;
+localStorage.setItem("visits", visits);
+
+let orders = JSON.parse(localStorage.getItem("orders") || "[]");
+
+async function checkName(){
+
+let uid = document.getElementById("uid").value;
+let zone = document.getElementById("zone").value;
+
+let apis = [
+`https://api.isan.eu.org/nickname/ml?id=${uid}&zone=${zone}`,
+`https://api.isan.eu.org/nickname/ml?id=${uid}&server=${zone}`
+];
+
+let success = false;
+
+for(let api of apis){
+
+try{
+
+let res = await fetch(api);
+let data = await res.json();
+
+let username = data.nickname || data.name || data.username;
+
+if(username){
+
+success = true;
+
+document.getElementById("result").innerHTML =
+"Username: " + username;
+
+break;
+}
+
+}catch(err){}
+}
+
+if(!success){
+document.getElementById("result").innerHTML =
+"API Busy or Player Not Found";
+}
+}
+
+function placeOrder(){
+
+let uid = document.getElementById("uid").value;
+let zone = document.getElementById("zone").value;
+let product = document.getElementById("product").value;
+
+if(uid == "" || zone == ""){
+alert("Enter ID and Server ID");
+return;
+}
+
+let amount = product.split("₹")[1];
+
+let orderId = "ORD" + Date.now();
+
+let order = {
+id:orderId,
+uid,
+zone,
+product,
+amount,
+status:"PENDING"
+};
+
+orders.push(order);
+
+localStorage.setItem("orders", JSON.stringify(orders));
+
+let receipt = `
+<h2>PAYMENT RECEIPT</h2>
+<br>
+Order ID: ${orderId}<br>
+MLBB ID: ${uid}<br>
+Server ID: ${zone}<br>
+Pack: ${product}<br>
+Amount: ₹${amount}<br>
+Status: <span class='pending'>PENDING</span>
+`;
+
+document.getElementById("receipt").style.display = "block";
+document.getElementById("receipt").innerHTML = receipt;
+
+let msg = `Hello DEADLY OFFICIAL STORE,%0A%0AI want to order:%0A${product}%0A%0AOrder ID: ${orderId}%0AMLBB ID: ${uid}%0AServer ID: ${zone}`;
+
+window.open(`https://wa.me/918787821704?text=${msg}`);
+
+loadAdminOrders();
+}
+
+function loginAdmin(){
+
+let pass = document.getElementById("adminPass").value;
+
+if(pass == "RUPAM120"){
+
+document.getElementById("adminPanel").style.display = "block";
+
+loadAdminOrders();
+
+}else{
+alert("Wrong Password");
+}
+}
+
+function loadAdminOrders(){
+
+let adminOrders = document.getElementById("adminOrders");
+adminOrders.innerHTML = "";
+
+let orders = JSON.parse(localStorage.getItem("orders") || "[]");
+
+for(let i=0;i<orders.length;i++){
+
+let order = orders[i];
+
+adminOrders.innerHTML += `
+<div class='order-item'>
+
+Order ID: ${order.id}<br>
+MLBB ID: ${order.uid}<br>
+Server: ${order.zone}<br>
+Pack: ${order.product}<br>
+Status:
+<span class='${order.status == "SUCCESS" ? "success" : "pending"}'>
+${order.status}
+</span>
+
+<button onclick='markSuccess(${i})'>Mark Success</button>
+
+</div>
+`;
+}
+
+
+document.getElementById("visits").innerHTML = visits;
+document.getElementById("totalOrders").innerHTML = orders.length;
+}
+
+function markSuccess(index){
+
+orders[index].status = "SUCCESS";
+
+localStorage.setItem("orders", JSON.stringify(orders));
+
+loadAdminOrders();
+
+updateReceipt(orders[index]);
+}
+
+function updateReceipt(order){
+
+let receipt = `
+<h2>PAYMENT RECEIPT</h2>
+<br>
+Order ID: ${order.id}<br>
+MLBB ID: ${order.uid}<br>
+Server ID: ${order.zone}<br>
+Pack: ${order.product}<br>
+Amount: ₹${order.amount}<br>
+Status: <span class='success'>SUCCESS</span>
+`;
+
+if(document.getElementById("receipt").innerHTML.includes(order.id)){
+
+document.getElementById("receipt").innerHTML = receipt;
+}
+}
+
+let fakeOrders = [
+"Rahul purchased Weekly Pass",
+"Akash purchased 86 Diamonds",
+"Sahil purchased Twilight Pass",
+"Rohan purchased 172 Diamonds"
+];
+
+let x = 0;
+
+setInterval(()=>{
+
+document.getElementById("liveOrders").innerHTML =
+"Recent Order: " + fakeOrders[x];
+
+x++;
+
+if(x >= fakeOrders.length){
+x = 0;
+}
+
+},2000);
+
+</script>
+
+</body>
+</html>
